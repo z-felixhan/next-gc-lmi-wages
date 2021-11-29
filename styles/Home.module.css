@@ -16,7 +16,7 @@
   display: flex;
   flex: 1;
   padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
+  border-top: 1px solid #cacaca;
   justify-content: center;
   align-items: center;
 }
@@ -45,12 +45,11 @@
   font-size: 4rem;
 }
 
-.title,
-.description {
+.title {
   text-align: center;
 }
 
-.description {
+.formContainer {
   margin: 4rem 0;
   line-height: 1.5;
   font-size: 1.5rem;
