@@ -4,6 +4,17 @@ const Form = (props) => {
   const { noc, nocList, nocSelected, pruidList, setNocSelected, setWages } =
     props;
 
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "CAD",
+  });
+
+  // Returns wage in CAD
+  const parseWage = (wage) => {
+    return formatter.format(parseInt(wage));
+  };
+
+  // Gets the wage of the job and sets the state
   const getWage = async (e, noc) => {
     e.preventDefault();
     setWages([]);
@@ -14,11 +25,16 @@ const Form = (props) => {
     const add = await data.map((item) => {
       const name = pruidList.filter((x) => String(x.pruid) == item.pruid)[0]
         .name;
-      return { ...item, name };
+      return {
+        ...item,
+        med_wage: parseWage(item.med_wage),
+        max_wage: parseWage(item.max_wage),
+        min_wage: parseWage(item.min_wage),
+        name,
+      };
     });
     const result = await add.sort((a, b) => a.name.localeCompare(b.name));
 
-    console.log(result);
     setWages(result);
   };
 
