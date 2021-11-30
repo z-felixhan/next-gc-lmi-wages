@@ -1,12 +1,17 @@
+import { DataGrid } from "@mui/x-data-grid";
 import { useState } from "react";
 import Form from "../components/Form";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
-var formatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "CAD",
-});
+// Table column headers
+const headers = [
+  { field: "name", headerName: "Province/Territory", flex: 1 },
+  { field: "med_wage", headerName: "Median", flex: 1 },
+  { field: "max_wage", headerName: "Maximum", flex: 1 },
+  { field: "min_wage", headerName: "Minimum", flex: 1 },
+  { field: "ref_period", headerName: "Reference Period", flex: 1 },
+];
 
 export async function getStaticProps() {
   const nocUrl = "https://orient.onrender.com/noc";
@@ -23,7 +28,7 @@ export async function getStaticProps() {
   const pruidList = await pruidUnsorted
     .slice()
     .sort((a, b) => a.name.localeCompare(b.name));
-  console.log(pruidList);
+
   return {
     props: {
       nocList,
@@ -60,31 +65,18 @@ export default function Home({ nocList, pruidList }) {
           />
         </div>
 
-        <div className={styles.grid}>
-          {wages.length
-            ? wages.map((wage) => {
-                const {
-                  eruid,
-                  max_wage,
-                  med_wage,
-                  min_wage,
-                  name,
-                  noc,
-                  pruid,
-                  ref_period,
-                } = wage;
-
-                return (
-                  <div key={eruid} className={styles.card}>
-                    <h2>{name}</h2>
-                    <p>{formatter.format(max_wage)}</p>
-                    <p>{formatter.format(med_wage)}</p>
-                    <p>{formatter.format(min_wage)}</p>
-                    <p>Updated: {ref_period}</p>
-                  </div>
-                );
-              })
-            : ""}
+        <div className={styles.dataGridContainer}>
+          {wages.length ? (
+            <DataGrid
+              getRowId={(r) => r.eruid}
+              columns={headers}
+              rows={wages}
+              autoHeight
+              hideFooter
+            />
+          ) : (
+            ""
+          )}
         </div>
       </main>
 
