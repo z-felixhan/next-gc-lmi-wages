@@ -38,6 +38,7 @@ export async function getStaticProps() {
 }
 
 export default function Home({ nocList, pruidList }) {
+  const [loading, setLoading] = useState(false);
   const [nocSelected, setNocSelected] = useState("");
   const [wages, setWages] = useState([]);
 
@@ -56,9 +57,11 @@ export default function Home({ nocList, pruidList }) {
         <h1 className={styles.title}>Search Canadian Wages</h1>
         <div className={styles.formContainer}>
           <Form
+            loading={loading}
             nocList={nocList}
             nocSelected={nocSelected}
             pruidList={pruidList}
+            setLoading={setLoading}
             setNocSelected={setNocSelected}
             setWages={setWages}
             wages={wages}

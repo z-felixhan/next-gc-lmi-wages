@@ -1,8 +1,17 @@
+import { LoadingButton } from "@mui/lab";
 import { Autocomplete, Button, Grid, TextField } from "@mui/material";
 
 const Form = (props) => {
-  const { noc, nocList, nocSelected, pruidList, setNocSelected, setWages } =
-    props;
+  const {
+    loading,
+    noc,
+    nocList,
+    nocSelected,
+    pruidList,
+    setLoading,
+    setNocSelected,
+    setWages,
+  } = props;
 
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -17,6 +26,7 @@ const Form = (props) => {
   // Gets the wage of the job and sets the state
   const getWage = async (e, noc) => {
     e.preventDefault();
+    setLoading(true);
     setWages([]);
 
     const url = `https://orient.onrender.com/gc/wages/${noc}`;
@@ -36,10 +46,11 @@ const Form = (props) => {
     const result = await add.sort((a, b) => a.name.localeCompare(b.name));
 
     setWages(result);
+    setLoading(false);
   };
 
   return (
-    <form onSubmit={(e) => getWage(e, nocSelected)}>
+    <form>
       <Grid
         container
         spacing={1}
@@ -76,9 +87,16 @@ const Form = (props) => {
           />
         </Grid>
         <Grid item>
-          <Button type="submit" sx={{ padding: "1rem" }} variant="contained">
+          <LoadingButton
+            loading={loading}
+            loadingIndicator="Loading..."
+            onClick={(e) => getWage(e, nocSelected)}
+            type="submit"
+            sx={{ padding: "1rem" }}
+            variant="contained"
+          >
             Get Wage
-          </Button>
+          </LoadingButton>
         </Grid>
       </Grid>
     </form>
