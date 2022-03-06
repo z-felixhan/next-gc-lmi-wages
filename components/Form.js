@@ -50,7 +50,7 @@ const Form = (props) => {
   };
 
   return (
-    <form>
+    <form onSubmit={(e) => getWage(e, nocSelected)}>
       <Grid
         container
         spacing={1}
@@ -90,7 +90,6 @@ const Form = (props) => {
           <LoadingButton
             loading={loading}
             loadingIndicator="Loading..."
-            onClick={(e) => getWage(e, nocSelected)}
             type="submit"
             sx={{ padding: "1rem" }}
             variant="contained"
