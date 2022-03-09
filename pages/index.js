@@ -74,6 +74,12 @@ export default function Home({ nocList, pruidList }) {
               getRowId={(r) => r.eruid}
               columns={headers}
               rows={wages}
+              sx={{
+                border: "5px solid rgba(0, 0, 0, .25)",
+                "& .MuiDataGrid-columnHeaderTitle": {
+                  fontWeight: 800,
+                },
+              }}
               autoHeight
               hideFooter
             />
