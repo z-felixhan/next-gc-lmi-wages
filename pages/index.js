@@ -50,7 +50,10 @@ export default function Home({ nocList, pruidList }) {
           name="description"
           content="Find wages by occupation (NOC) throughout Canada"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="icon"
+          href="https://z-felixhan.github.io/next-gc-lmi-wages/favicon.ico"
+        />
       </Head>
 
       <main className={styles.main}>
